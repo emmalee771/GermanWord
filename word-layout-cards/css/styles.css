@@ -1,0 +1,242 @@
+/* Word layout — Figma 프레임 1:44 스펙 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --frame-w: 718px;
+  --frame-pad: 40px;
+  --col-gap: 24px;
+  --media: 240px;
+  /* 240×240 중 약 60% 면적 = 한 변 비율 √0.6 */
+  --media-img-box: 77.45966692414834%;
+  --media-radius: 16px;
+  --media-fill: #f9f9f9;
+  --media-stroke: rgba(0, 0, 0, 0.02);
+  --tag-bg: #fcffc8;
+  --ink: #000000;
+  --muted: #666666;
+  --divider: rgba(0, 0, 0, 0.08);
+  --font: "SUIT Variable", "SUIT", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  font-weight: 400;
+  color: var(--ink);
+  background: #e8eaed;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  gap: 1rem;
+}
+
+.word-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--frame-w);
+}
+
+.page-hint {
+  margin: 0;
+  max-width: var(--frame-w);
+  font-size: 0.85rem;
+  color: #5c636a;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.load-error {
+  margin: 0;
+  padding: 1.5rem;
+  color: #b91c1c;
+  text-align: center;
+}
+
+/* 프레임: 718×336, 흰 배경, padding 40 */
+.word-frame {
+  width: 100%;
+  max-width: var(--frame-w);
+  min-height: 336px;
+  background: #ffffff;
+  padding: var(--frame-pad);
+}
+
+.word-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--col-gap);
+  width: 100%;
+}
+
+/* 좌측 이미지 영역 240×240, #F9F9F9, rx 16, stroke ~2% */
+.word-card__media {
+  flex: 0 0 var(--media);
+  width: var(--media);
+  height: var(--media);
+  border-radius: var(--media-radius);
+  background: var(--media-fill);
+  border: 1px solid var(--media-stroke);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 투명 PNG/SVG: 바깥 240×240의 약 60% 면적(√0.6 × 변) 박스 안에서 비율 유지·중앙 */
+.word-card__media-anchor {
+  width: var(--media-img-box);
+  height: var(--media-img-box);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.word-card__media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.word-card__content {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 상단: {문법적 성} 태그 + {한국어} 우측 정렬 */
+.word-card__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 20px;
+}
+
+.word-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.25rem;
+  min-height: 20px;
+  background: var(--tag-bg);
+  border-radius: 2px;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.word-card__title-ko {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* 구분선 + 격 표 */
+.word-card__dict {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--divider);
+}
+
+.word-card__row {
+  display: grid;
+  align-items: center;
+  min-height: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--divider);
+  font-family: var(--font);
+}
+
+.word-card__row--triple {
+  grid-template-columns: 108px 1fr 1fr;
+  gap: 0 12px;
+}
+
+.word-card__row--pair {
+  grid-template-columns: 108px 1fr;
+  gap: 0 12px;
+}
+
+.word-card__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.word-card__row dt {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.word-card__row dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+  text-align: right;
+}
+
+.word-card__dd-plural {
+  grid-column: 2 / -1;
+}
+
+@media (max-width: 760px) {
+  .word-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .word-card__media {
+    align-self: center;
+  }
+
+  .word-card__row--triple {
+    grid-template-columns: 1fr;
+    gap: 0.35rem 0;
+  }
+
+  .word-card__row--triple dt {
+    margin-bottom: 0.25rem;
+  }
+
+  .word-card__row--triple dd {
+    text-align: left;
+  }
+
+  .word-card__row--pair {
+    grid-template-columns: 1fr;
+  }
+
+  .word-card__dd-plural {
+    grid-column: auto;
+  }
+}
