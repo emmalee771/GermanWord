@@ -1,39 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>German Card</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Word layout</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sun-typeface/suit@2.0.5/fonts/variable/woff2/SUIT-Variable.css" crossorigin />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="card">
-    <div class="card-image">
-      <img src="tooth.png" alt="tooth" />
-    </div>
-
-    <div class="card-content">
-      <div class="card-header">
-        <span class="label">문법적 성</span>
-        <h2 class="title">
-          Zahn <span class="sub">이</span>
-        </h2>
-      </div>
-
-      <div class="card-body">
-        <div class="row">
-          <span class="case red">1격 Nominativ</span>
-          <span class="desc">der Zahn</span>
-        </div>
-        <div class="row">
-          <span class="case red">3격 Dativ</span>
-          <span class="desc">dem Zahn</span>
-        </div>
-        <div class="row">
-          <span class="case red">4격 Akkusativ</span>
-          <span class="desc">den Zahn</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <main class="page">
+    <div class="word-stack" id="word-stack" aria-label="단어 카드" aria-busy="true"></div>
+    <p class="page-hint" id="page-hint">word_data.csv 불러오는 중…</p>
+  </main>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
