@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-  <!-- Dt · das Kind  ,… 0½, 8¬ D( | -->
-  <circle cx="100" cy="78" r="36" fill="#1a1a1a"/>
-  <path fill="#1a1a1a" d="M70 152c0-18 14-32 30-32s30 14 30 32v18H70v-18z"/>
-  <circle cx="88" cy="74" r="4" fill="#fff"/>
-  <circle cx="112" cy="74" r="4" fill="#fff"/>
-  <path stroke="#fff" stroke-width="3" stroke-linecap="round" d="M92 96c4 4 12 4 16 0"/>
-</svg>
