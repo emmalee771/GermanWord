@@ -3,7 +3,7 @@
  * Live Server로 프로젝트 루트를 연 상태에서 fetch해야 합니다.
  *
  * word_data.csv — 시트 헤더와 열 순서 매칭
- * {성별},{한국어},{1격 정관사 명사},…,{복수 정관사 명사}
+ * {성별},{한국어},{1격 정관사 명사},…,{복수 정관사 명사},{이미지}
  */
 
 /** 한국어 단어 → 투명 배경 이미지 (images/ 아래 SVG) */
@@ -19,6 +19,13 @@ function escapeHtml(s) {
   return d.innerHTML;
 }
 
+function cleanHeaderCell(h) {
+  return String(h || "")
+    .replace(/^\uFEFF/, "")
+    .replace(/^\{|\}$/g, "")
+    .trim();
+}
+
 function parseCSV(text) {
   const lines = text
     .replace(/^\uFEFF/, "")
@@ -27,29 +34,40 @@ function parseCSV(text) {
     .filter(Boolean);
   if (lines.length < 2) return { header: [], rows: [] };
 
-  const header = lines[0].split(",").map((h) => h.replace(/^\{|\}$/g, "").trim());
+  const header = lines[0].split(",").map(cleanHeaderCell);
   const rows = [];
+
   for (let i = 1; i < lines.length; i++) {
-    const parts = lines[i].split(",");
-    if (parts.length < 9) continue;
-    const tail = parts.length > 9 ? parts.slice(8).join(",") : parts[8];
-    rows.push({
-      성별: parts[0].trim(),
-      한국어: parts[1].trim(),
-      "1격 정관사 명사": parts[2].trim(),
-      "3격 정관사 명사": parts[3].trim(),
-      "4격 정관사 명사": parts[4].trim(),
-      "1격 부정관사 명사": parts[5].trim(),
-      "3격 부정관사 명사": parts[6].trim(),
-      "4격 부정관사 명사": parts[7].trim(),
-      "복수 정관사 명사": tail.trim(),
-    });
+    const parts = lines[i].split(",").map((c) => c.trim());
+    const row = {};
+
+    // 헤더 수가 더 많으면 빈 값으로 패딩
+    while (parts.length < header.length) parts.push("");
+
+    // 데이터가 더 많으면 마지막 셀로 합침(쉼표 포함 데이터에 대한 최소 방어)
+    if (parts.length > header.length) {
+      const head = parts.slice(0, header.length - 1);
+      const tail = parts.slice(header.length - 1).join(",");
+      parts.length = 0;
+      parts.push(...head, tail);
+    }
+
+    for (let c = 0; c < header.length; c++) {
+      const key = header[c];
+      if (!key) continue;
+      row[key] = parts[c] ?? "";
+    }
+
+    if (!row["성별"] || !row["한국어"]) continue;
+    rows.push(row);
   }
+
   return { header, rows };
 }
 
 function mediaHtml(row) {
-  const src = WORD_MEDIA[row.한국어];
+  const csvSrc = typeof row["이미지"] === "string" ? row["이미지"].trim() : "";
+  const src = csvSrc || WORD_MEDIA[row["한국어"]];
   if (!src) {
     return `<div class="word-card__media" role="presentation" aria-hidden="true"></div>`;
   }

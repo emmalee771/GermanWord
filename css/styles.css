@@ -9,8 +9,8 @@
   --frame-w: 718px;
   --frame-pad: 40px;
   --col-gap: 24px;
-  --media: 240px;
-  /* 240×240 중 약 60% 면적 = 한 변 비율 √0.6 */
+  --media: 200px;
+  /* 미디어 정사각형 중 약 60% 면적 = 한 변 비율 √0.6 */
   --media-img-box: 77.45966692414834%;
   --media-radius: 16px;
   --media-fill: #f9f9f9;
@@ -64,11 +64,11 @@ body {
   text-align: center;
 }
 
-/* 프레임: 718×336, 흰 배경, padding 40 */
+/* 프레임: 718×280, 흰 배경, padding 40 */
 .word-frame {
   width: 100%;
   max-width: var(--frame-w);
-  min-height: 336px;
+  min-height: 280px;
   background: #ffffff;
   padding: var(--frame-pad);
 }
@@ -81,7 +81,7 @@ body {
   width: 100%;
 }
 
-/* 좌측 이미지 영역 240×240, #F9F9F9, rx 16, stroke ~2% */
+/* 좌측 이미지 영역 200×200, #F9F9F9, rx 16, stroke ~2% */
 .word-card__media {
   flex: 0 0 var(--media);
   width: var(--media);
@@ -94,7 +94,7 @@ body {
   justify-content: center;
 }
 
-/* 투명 PNG/SVG: 바깥 240×240의 약 60% 면적(√0.6 × 변) 박스 안에서 비율 유지·중앙 */
+/* 투명 PNG/SVG: 바깥 정사각형의 약 60% 면적(√0.6 × 변) 박스 안에서 비율 유지·중앙 */
 .word-card__media-anchor {
   width: var(--media-img-box);
   height: var(--media-img-box);
@@ -160,15 +160,15 @@ body {
   flex-direction: column;
   gap: 0;
   margin: 24px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--divider);
+  padding-top: 0;
+  border-top: none;
 }
 
 .word-card__row {
   display: grid;
   align-items: center;
-  min-height: 20px;
-  padding: 16px 0;
+  min-height: 17px;
+  padding: 6px 0;
   border-bottom: 1px solid var(--divider);
   font-family: var(--font);
 }
@@ -198,7 +198,7 @@ body {
 
 .word-card__row dd {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.25;
   color: var(--ink);
