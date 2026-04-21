@@ -22,7 +22,9 @@ function resolveAssetUrl(maybeRelativeUrl) {
     typeof window.__ASSET_BASE__ === "string" && window.__ASSET_BASE__.length > 0
       ? window.__ASSET_BASE__
       : window.location.href;
-  return new URL(raw, base).href;
+  // base may be relative (e.g. "../") so normalize it against current location first
+  const baseUrl = new URL(base, window.location.href);
+  return new URL(raw, baseUrl).href;
 }
 
 function escapeHtml(s) {
