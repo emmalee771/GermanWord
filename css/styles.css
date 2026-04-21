@@ -92,6 +92,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 /* 투명 PNG/SVG: 바깥 정사각형의 약 60% 면적(√0.6 × 변) 박스 안에서 비율 유지·중앙 */
@@ -113,6 +114,22 @@ body {
   display: block;
 }
 
+.word-card__ko-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.968px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
 .word-card__content {
   flex: 1 1 0;
   min-width: 0;
@@ -126,23 +143,41 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-  min-height: 20px;
+  min-height: 29px;
 }
 
 .word-card__tag {
   display: inline-flex;
   align-items: center;
-  padding: 0 0.25rem;
-  min-height: 20px;
+  justify-content: center;
+  padding: 6px 12px;
+  min-height: 29px;
   background: var(--tag-bg);
-  border-radius: 2px;
+  border-radius: 999px;
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 17.472px; /* Figma: 14px * 1.248 */
   color: var(--ink);
+  white-space: nowrap;
+}
+
+/* 성별별 태그 컬러 (Figma {남성}/{여성}/{중성} 프레임에서 추출) */
+.word-card__tag--male {
+  background: #f3f6ff;
+  color: #4f84ff;
+}
+
+.word-card__tag--female {
+  background: #fff3fb;
+  color: #ff4fbf;
+}
+
+.word-card__tag--neuter {
+  background: #f3fff9;
+  color: #39a46e;
 }
 
 .word-card__title-ko {

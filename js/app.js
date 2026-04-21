@@ -69,27 +69,37 @@ function mediaHtml(row) {
   const csvSrc = typeof row["이미지"] === "string" ? row["이미지"].trim() : "";
   const src = csvSrc || WORD_MEDIA[row["한국어"]];
   if (!src) {
-    return `<div class="word-card__media" role="presentation" aria-hidden="true"></div>`;
+    return `<div class="word-card__media" role="presentation" aria-hidden="true">
+      <span class="word-card__ko-badge">${escapeHtml(row["한국어"])}</span>
+    </div>`;
   }
   const safeSrc = escapeHtml(src);
   return `<div class="word-card__media" role="presentation" aria-hidden="true">
     <span class="word-card__media-anchor">
       <img class="word-card__media-img" src="${safeSrc}" width="186" height="186" alt="" decoding="async" />
     </span>
+    <span class="word-card__ko-badge">${escapeHtml(row["한국어"])}</span>
   </div>`;
 }
 
 function renderCard(row) {
   const g = escapeHtml(row.성별);
   const ko = escapeHtml(row.한국어);
+  const tagClass =
+    row["성별"] === "남성"
+      ? "word-card__tag word-card__tag--male"
+      : row["성별"] === "여성"
+        ? "word-card__tag word-card__tag--female"
+        : row["성별"] === "중성"
+          ? "word-card__tag word-card__tag--neuter"
+          : "word-card__tag";
   return `
     <article class="word-frame" aria-label="${ko}">
       <div class="word-card">
         ${mediaHtml(row)}
         <div class="word-card__content">
           <header class="word-card__head">
-            <span class="word-card__tag">${g}</span>
-            <span class="word-card__title-ko">${ko}</span>
+            <span class="${tagClass}">${g}</span>
           </header>
           <dl class="word-card__dict">
             <div class="word-card__row word-card__row--triple">
