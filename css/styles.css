@@ -85,6 +85,8 @@ body {
   min-height: 280px;
   background: #ffffff;
   padding: var(--frame-pad);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.025);
+  border-radius: 24px;
 }
 
 .word-card {
@@ -278,41 +280,60 @@ body {
 }
 
 @media (max-width: 760px) {
-  /* Figma: Word layout_mo (360w, inner 328w, thumbnail 100×100) */
+  /* Figma: Word layout_mo (360w, inner 296w, thumbnail 200×200) */
   :root {
     --frame-w: 360px;
     --frame-pad: 16px;
-    --media: 100px;
+    --media: 200px;
   }
 
-  /* 상단: 썸네일(좌) + 헤더 pill(우), 하단: 격 표 전체 폭 */
+  /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
+  .word-stack {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 16px;
+    max-width: 100%;
+  }
+
+  .word-frame {
+    flex: 0 0 auto;
+    width: var(--frame-w);
+    scroll-snap-align: center;
+  }
+
+  .word-frame {
+    border-radius: 24px;
+  }
+
+  /* 모바일은 상단 중앙 썸네일 → 헤더 pill → 케이스 표 */
   .word-card {
-    display: grid;
-    grid-template-columns: var(--media) 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 24px;
-    row-gap: 24px;
-    align-items: start;
-  }
-
-  .word-card__content {
-    display: contents;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 
   .word-card__media {
-    grid-column: 1;
-    grid-row: 1;
+    align-self: center;
+  }
+
+  .word-card__content {
+    width: 100%;
+    max-width: 296px; /* inner content width */
   }
 
   .word-card__head {
-    grid-column: 2;
-    grid-row: 1;
+    justify-content: center;
   }
 
   .word-card__dict {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-top: 0;
+    margin-top: 16px;
   }
 
   /* 모바일에서는 괄호 텍스트 숨김 */
@@ -320,20 +341,37 @@ body {
     display: none;
   }
 
-  /* 1격/3격/4격/복수 라벨 칸을 더 좁게 */
+  /* 모바일 Figma는 텍스트 14px */
+  .word-card__ko-pill {
+    font-size: 14px;
+    line-height: 17.472px;
+  }
+
+  .word-card__tag {
+    font-size: 14px;
+    line-height: 17.472px;
+  }
+
+  .word-card__case {
+    font-size: 14px;
+    line-height: 17.472px;
+  }
+
+  .word-card__row dt {
+    font-size: 14px;
+  }
+
+  .word-card__row dd {
+    font-size: 14px;
+  }
+
+  /* 1격/3격/4격/복수 라벨 칸 + 두 값 칼럼 */
   .word-card__row--triple {
-    grid-template-columns: 30px 1fr 1fr;
-    gap: 0 12px;
+    grid-template-columns: 78px 1fr 1fr;
   }
 
   .word-card__row--pair {
-    grid-template-columns: 30px 1fr;
-    gap: 0 12px;
-  }
-
-  /* 모바일 Figma는 값도 좌측 정렬 */
-  .word-card__row dd {
-    text-align: left;
+    grid-template-columns: 78px 1fr;
   }
 
   .word-card__dd-plural {
