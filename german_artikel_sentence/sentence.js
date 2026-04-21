@@ -99,12 +99,15 @@ function renderCard(row, idx) {
 
   return `
   <article class="sentence-card" aria-label="${ko}">
+    <div class="sentence-card__top">
+      <div class="${pillClass}">${core}</div>
+      <div class="sentence-num">${num}</div>
+    </div>
     <div class="sentence-card__thumb" aria-hidden="true">
       <img src="${escapeHtml(imgSrc)}" alt="" decoding="async" />
     </div>
     <div class="sentence-card__body">
-      <div class="${pillClass}">${core}</div>
-      <h2 class="sentence-title">${num}. ${de}</h2>
+      <h2 class="sentence-title">${de}</h2>
       <p class="sentence-subtitle">${ko}</p>
     </div>
   </article>`;

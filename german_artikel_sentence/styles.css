@@ -104,6 +104,7 @@ body {
   background: #f0f0f0;
   overflow: hidden;
   margin: 0 auto;
+  margin-top: 16px; /* top row -> thumbnail gap (Figma: 16) */
 }
 
 .sentence-card__thumb img {
@@ -113,8 +114,26 @@ body {
   display: block;
 }
 
+.sentence-card__top {
+  width: 252px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sentence-num {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 19.968px;
+  color: #999999;
+  text-align: right;
+  white-space: nowrap;
+}
+
 .sentence-card__body {
-  margin-top: 20px;
+  margin-top: 16px; /* thumbnail -> text gap (Figma: 16) */
   width: 252px;
   margin-left: auto;
   margin-right: auto;
