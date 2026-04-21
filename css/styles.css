@@ -29,11 +29,11 @@
 }
 
 .word-frame--male {
-  --article-color: #ff4fbf;
+  --article-color: #4f84ff;
 }
 
 .word-frame--female {
-  --article-color: #4f84ff;
+  --article-color: #ff4fbf;
 }
 
 body {
