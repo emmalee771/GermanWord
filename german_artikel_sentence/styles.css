@@ -51,19 +51,11 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: 182px;
-  top: -37.28px;
+  /* Figma Sentancelayout_mo 기준: x=319, y=-2370.28 (프레임 x=129, y=-2325) */
+  left: 190px;
+  top: -45.282px;
   transform: rotate(30deg);
   transform-origin: 50% 50%;
-}
-
-.sentence-header__title {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 29.952px;
-  color: #222222;
-  text-align: center;
 }
 
 /* Carousel */
