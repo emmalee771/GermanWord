@@ -139,9 +139,9 @@ body {
   background: #3c3f4a;
   border-radius: 999px;
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 19.968px;
+  line-height: 17.472px;
   color: #ebebeb;
   white-space: nowrap;
 }
