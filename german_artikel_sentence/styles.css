@@ -6,7 +6,6 @@
   --stroke: #ececec;
   --ink: #222222;
   --muted: #666666;
-  --header-fill: #58f8bb;
 }
 
 *,
@@ -26,36 +25,9 @@ body {
 .sentence-page {
   min-height: 100vh;
   padding: 24px 0 24px;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Header decoration stays behind cards */
-.sentence-header {
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.sentence-header__deco {
-  width: 218.5641px;
-  height: 218.5641px;
-  border-radius: 999px;
-  background: var(--header-fill);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  /* Figma Sentancelayout_mo 기준: x=319, y=-2370.28 (프레임 x=129, y=-2325) */
-  left: 190px;
-  top: -45.282px;
-  transform: rotate(30deg);
-  transform-origin: 50% 50%;
 }
 
 /* Carousel */
