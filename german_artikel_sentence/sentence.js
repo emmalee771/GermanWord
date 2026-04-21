@@ -54,11 +54,42 @@ function resolveUrl(relOrAbs, base) {
   return new URL(raw, base).href;
 }
 
+function detectGender(core) {
+  const s = (core ?? "").toString();
+  if (s.includes("남성")) return "male";
+  if (s.includes("여성")) return "female";
+  if (s.includes("중성")) return "neuter";
+  return "";
+}
+
+const ARTICLES_BY_GENDER = {
+  male: ["der", "dem", "den", "ein", "einem", "einen", "die"],
+  female: ["die", "der", "eine", "einer"],
+  neuter: ["das", "dem", "ein", "einem", "die"],
+};
+
+function highlightArticles(sentence, gender) {
+  const raw = (sentence ?? "").toString();
+  if (!raw || !gender || !ARTICLES_BY_GENDER[gender]) return escapeHtml(raw);
+
+  const words = ARTICLES_BY_GENDER[gender]
+    .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+
+  // Match whole words, keep punctuation outside the match.
+  const re = new RegExp(`\\b(${words})\\b`, "gi");
+  const cls = `sentence-article sentence-article--${gender}`;
+  return escapeHtml(raw).replace(re, (m) => `<span class="${cls}">${m}</span>`);
+}
+
 function renderCard(row, idx) {
   const num = escapeHtml(row["번호"] || String(idx + 1));
-  const de = escapeHtml(row["독일어예문"] || "");
+  const coreRaw = (row["핵심관사"] || "").toString();
+  const gender = detectGender(coreRaw);
+  const de = highlightArticles(row["독일어예문"] || "", gender);
   const ko = escapeHtml(row["한국어해석"] || "");
-  const core = escapeHtml(row["핵심관사"] || "");
+  const core = escapeHtml(coreRaw);
+  const pillClass = gender ? `sentence-pill sentence-pill--${gender}` : "sentence-pill sentence-pill--male";
 
   const base =
     typeof window.__SENTENCE_IMAGE_BASE__ === "string" && window.__SENTENCE_IMAGE_BASE__.length > 0
@@ -72,7 +103,7 @@ function renderCard(row, idx) {
       <img src="${escapeHtml(imgSrc)}" alt="" decoding="async" />
     </div>
     <div class="sentence-card__body">
-      <div class="sentence-pill">${core}</div>
+      <div class="${pillClass}">${core}</div>
       <h2 class="sentence-title">${num}. ${de}</h2>
       <p class="sentence-subtitle">${ko}</p>
     </div>

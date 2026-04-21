@@ -86,7 +86,7 @@ body {
 .sentence-card {
   flex: 0 0 auto;
   width: 316px;
-  height: 443px;
+  height: auto;
   background: var(--card-bg);
   border: 1px solid var(--stroke);
   border-radius: 24px;
@@ -126,13 +126,41 @@ body {
   padding: 6px 12px;
   min-height: 29px;
   border-radius: 100px;
-  background: #f3f6ff;
-  color: #4f84ff;
   font-size: 14px;
   font-weight: 800;
   line-height: 17.472px;
 }
 
+.sentence-pill--male {
+  background: #f3f6ff;
+  color: #4f84ff;
+}
+
+.sentence-pill--female {
+  background: #fff3fb;
+  color: #ff4fbf;
+}
+
+.sentence-pill--neuter {
+  background: #f3fff9;
+  color: #39a46e;
+}
+
+.sentence-article {
+  font-weight: 700;
+}
+
+.sentence-article--male {
+  color: #4f84ff;
+}
+
+.sentence-article--female {
+  color: #ff4fbf;
+}
+
+.sentence-article--neuter {
+  color: #39a46e;
+}
 .sentence-title {
   margin: 16px 0 0;
   font-size: 24px;
