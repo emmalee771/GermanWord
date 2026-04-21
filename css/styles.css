@@ -53,10 +53,15 @@ body {
   gap: 1rem;
 }
 
+.page-title-deco {
+  width: 100%;
+  max-width: var(--frame-w);
+  display: flex;
+  justify-content: center;
+}
+
 .page-title {
   margin: 0;
-  max-width: var(--frame-w);
-  width: 100%;
   font-size: 24px;
   font-weight: 600;
   line-height: 29.952px;
@@ -99,6 +104,7 @@ body {
   padding: var(--frame-pad);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.025);
   border-radius: 24px;
+  border: 1px solid #ececec; /* Figma card stroke */
 }
 
 .word-card {
@@ -312,10 +318,23 @@ body {
     background: #f9f9f9;
   }
 
+  .page-title-deco {
+    width: 230px;
+    height: 62px;
+    margin-top: 0;
+    background: #d9f939;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+  }
+
   .page-title {
-    padding: 16px 32px 0;
-    text-align: left;
-    justify-self: stretch;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29.952px;
+    color: #222222;
+    text-align: center;
   }
 
   /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
@@ -332,7 +351,7 @@ body {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 0 20px;
+    padding: 0 20px 0 24px; /* Figma: left margin 24 */
     max-width: 100%;
   }
 
