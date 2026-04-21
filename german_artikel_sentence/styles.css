@@ -182,18 +182,18 @@ body {
 }
 .sentence-title {
   margin: 16px 0 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
-  line-height: 29.952px;
+  line-height: 34.944px;
   color: #222222;
 }
 
 .sentence-subtitle {
   margin: 8px 0 0; /* Figma gap: 8 */
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 22.464px;
-  color: #555555;
+  line-height: 24.96px;
+  color: #222222;
 }
 
 .sentence-hint {
