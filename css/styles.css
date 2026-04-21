@@ -122,12 +122,12 @@ body {
   min-height: 29px;
   width: fit-content;
   max-width: 100%;
-  background: rgba(21, 22, 24, 0.88); /* Figma: #151618 @ 88% */
+  background: #3c3f4a;
   border-radius: 999px;
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 17.472px;
+  line-height: 19.968px;
   color: #ebebeb;
   white-space: nowrap;
 }
@@ -190,16 +190,16 @@ body {
 }
 
 .word-card__case {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 17.472px;
+  line-height: 19.968px;
   color: var(--muted);
 }
 
 .word-card__case-paren {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 17.472px;
+  line-height: 19.968px;
   color: #b3b3b3;
 }
 
@@ -239,7 +239,7 @@ body {
 
 .word-card__row dt {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.25;
   color: var(--muted);
@@ -247,7 +247,7 @@ body {
 
 .word-card__row dd {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.25;
   color: var(--ink);
