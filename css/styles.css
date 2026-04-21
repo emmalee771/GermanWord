@@ -20,7 +20,7 @@
   --muted: #666666;
   --divider: rgba(0, 0, 0, 0.08);
   --article-color: #b3b3b3;
-  --font: "SUIT Variable", "SUIT", system-ui, sans-serif;
+  --font: "Nunito Sans", "SUIT Variable", "SUIT", system-ui, sans-serif;
 }
 
 /* 성별별 관사/부정관사 컬러 (요청 매핑) */
