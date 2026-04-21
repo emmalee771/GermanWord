@@ -309,14 +309,24 @@ body {
     min-height: 100vh;
     padding: 24px 0 24px; /* 카드 상단 여백: 16 -> 24 */
     gap: 0;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
   }
 
   body {
     background: #f9f9f9;
+  }
+
+  .page-header {
+    /* 헤더는 레이아웃에 영향 주지 않게 (카드 아래 레이어) */
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 0;
+    z-index: 0;
+    pointer-events: none;
   }
 
   .page-title-deco {
@@ -327,7 +337,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-self: center;
     position: absolute;
     left: 182px;
     top: -37.28px;
@@ -348,9 +357,9 @@ body {
 
   /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
   .word-stack {
-    margin-top: 0;
-    align-self: center; /* 뷰포트 기준 세로 중앙 */
-    justify-self: stretch;
+    margin-top: auto; /* 세로 중앙/하단 배치 안정화 */
+    margin-bottom: auto;
+    align-self: stretch;
     position: relative;
     z-index: 2; /* 카드/캐러셀을 최상단으로 */
     flex-direction: row;
@@ -407,7 +416,7 @@ body {
   .page-hint {
     margin-top: 0;
     padding-bottom: 0;
-    align-self: end;
+    align-self: center;
   }
 
   /* 모바일에서는 괄호 텍스트 숨김 */
