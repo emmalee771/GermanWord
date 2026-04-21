@@ -1,6 +1,6 @@
 /* Sentence layout — Figma Sentancelayout_mo */
 :root {
-  --font: "Nunito Sans", system-ui, sans-serif;
+  --font: "Nunito Sans", "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --bg: #f9f9f9;
   --card-bg: #ffffff;
   --stroke: #ececec;
