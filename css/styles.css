@@ -292,18 +292,19 @@ body {
     flex-direction: row;
     align-items: stretch;
     justify-content: flex-start;
-    gap: 12px;
+    /* 340px 카드 + (다음 카드 20px peek) */
+    gap: 0;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 0 16px;
+    padding: 0 20px 0 0;
     max-width: 100%;
   }
 
   .word-frame {
     flex: 0 0 auto;
-    width: var(--frame-w);
+    width: 340px;
     scroll-snap-align: center;
   }
 
