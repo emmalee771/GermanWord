@@ -323,6 +323,7 @@ body {
     height: 62px;
     margin-top: 0;
     background: #d9f939;
+    border-radius: 0 0 24px 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -350,15 +351,16 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding: 0 24px; /* 스냅 기준을 뷰포트 인셋으로 */
     -webkit-overflow-scrolling: touch;
-    padding: 0 20px 0 24px; /* Figma: left margin 24 */
+    padding: 0 24px; /* Figma: 좌/우 24px 인셋 */
     max-width: 100%;
   }
 
   .word-frame {
     flex: 0 0 auto;
     width: 316px;
-    scroll-snap-align: start; /* 다음 카드 peek 안정화 */
+    scroll-snap-align: center; /* 카드가 좌우에 붙어 보이지 않게 */
   }
 
   .word-frame {
