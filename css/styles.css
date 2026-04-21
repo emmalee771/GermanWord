@@ -320,11 +320,11 @@ body {
   }
 
   .page-title-deco {
-    width: 230px;
-    height: 62px;
+    width: 218.5641px;
+    height: 218.5641px;
     margin-top: 0;
     background: #d9f939;
-    border-radius: 0 0 24px 24px;
+    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,6 +339,7 @@ body {
     line-height: 29.952px;
     color: #222222;
     text-align: center;
+    white-space: pre-line;
   }
 
   /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
