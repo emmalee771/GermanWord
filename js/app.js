@@ -69,21 +69,18 @@ function mediaHtml(row) {
   const csvSrc = typeof row["이미지"] === "string" ? row["이미지"].trim() : "";
   const src = csvSrc || WORD_MEDIA[row["한국어"]];
   if (!src) {
-    return `<div class="word-card__media" role="presentation" aria-hidden="true">
-      <span class="word-card__ko-badge">${escapeHtml(row["한국어"])}</span>
-    </div>`;
+    return `<div class="word-card__media" role="presentation" aria-hidden="true"></div>`;
   }
   const safeSrc = escapeHtml(src);
   return `<div class="word-card__media" role="presentation" aria-hidden="true">
     <span class="word-card__media-anchor">
       <img class="word-card__media-img" src="${safeSrc}" width="186" height="186" alt="" decoding="async" />
     </span>
-    <span class="word-card__ko-badge">${escapeHtml(row["한국어"])}</span>
   </div>`;
 }
 
 function renderCard(row) {
-  const g = escapeHtml(row.성별);
+  const g = escapeHtml(`${row.성별} 명사`);
   const ko = escapeHtml(row.한국어);
   const tagClass =
     row["성별"] === "남성"
@@ -99,26 +96,27 @@ function renderCard(row) {
         ${mediaHtml(row)}
         <div class="word-card__content">
           <header class="word-card__head">
+            <span class="word-card__ko-pill">${ko}</span>
             <span class="${tagClass}">${g}</span>
           </header>
           <dl class="word-card__dict">
             <div class="word-card__row word-card__row--triple">
-              <dt>1격 (Nominativ)</dt>
+              <dt><span class="word-card__case-wrap"><span class="word-card__case">1격</span><span class="word-card__case-paren">(Nominativ)</span></span></dt>
               <dd>${escapeHtml(row["1격 정관사 명사"])}</dd>
               <dd>${escapeHtml(row["1격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--triple">
-              <dt>3격 (Dativ)</dt>
+              <dt><span class="word-card__case-wrap"><span class="word-card__case">3격</span><span class="word-card__case-paren">(Dativ)</span></span></dt>
               <dd>${escapeHtml(row["3격 정관사 명사"])}</dd>
               <dd>${escapeHtml(row["3격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--triple">
-              <dt>4격 (Akkusativ)</dt>
+              <dt><span class="word-card__case-wrap"><span class="word-card__case">4격</span><span class="word-card__case-paren">(Akkusativ)</span></span></dt>
               <dd>${escapeHtml(row["4격 정관사 명사"])}</dd>
               <dd>${escapeHtml(row["4격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--pair">
-              <dt>복수 (Plural)</dt>
+              <dt><span class="word-card__case-wrap"><span class="word-card__case">복수</span><span class="word-card__case-paren">(Plural)</span></span></dt>
               <dd class="word-card__dd-plural">${escapeHtml(row["복수 정관사 명사"])}</dd>
             </div>
           </dl>
