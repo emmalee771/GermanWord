@@ -43,7 +43,6 @@ body {
   font-weight: 400;
   color: var(--ink);
   background: #e8eaed;
-  overflow-x: auto;
 }
 
 .page {
@@ -278,4 +277,34 @@ body {
   grid-column: 2 / -1;
 }
 
-/* 모바일에서도 데스크톱과 동일 레이아웃 유지 */
+@media (max-width: 760px) {
+  .word-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .word-card__media {
+    align-self: center;
+  }
+
+  .word-card__row--triple {
+    grid-template-columns: 1fr;
+    gap: 0.35rem 0;
+  }
+
+  .word-card__row--triple dt {
+    margin-bottom: 0.25rem;
+  }
+
+  .word-card__row--triple dd {
+    text-align: left;
+  }
+
+  .word-card__row--pair {
+    grid-template-columns: 1fr;
+  }
+
+  .word-card__dd-plural {
+    grid-column: auto;
+  }
+}
