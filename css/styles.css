@@ -53,6 +53,18 @@ body {
   gap: 1rem;
 }
 
+.page-title {
+  margin: 0;
+  max-width: var(--frame-w);
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29.952px;
+  letter-spacing: 0;
+  color: #222222;
+  text-align: center;
+}
+
 .word-stack {
   display: flex;
   flex-direction: column;
@@ -287,8 +299,30 @@ body {
     --media: 200px;
   }
 
+  .page {
+    min-height: 100vh;
+    padding: 16px 0 24px;
+    gap: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+  }
+
+  body {
+    background: #f9f9f9;
+  }
+
+  .page-title {
+    padding: 16px 32px 0;
+    text-align: left;
+    justify-self: stretch;
+  }
+
   /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
   .word-stack {
+    margin-top: 0;
+    align-self: center; /* 뷰포트 기준 세로 중앙 */
+    justify-self: stretch;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
@@ -298,14 +332,14 @@ body {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 0 20px 0 16px;
+    padding: 0 20px;
     max-width: 100%;
   }
 
   .word-frame {
     flex: 0 0 auto;
-    width: 340px;
-    scroll-snap-align: center;
+    width: 316px;
+    scroll-snap-align: start; /* 다음 카드 peek 안정화 */
   }
 
   .word-frame {
@@ -335,6 +369,12 @@ body {
 
   .word-card__dict {
     margin-top: 16px;
+  }
+
+  .page-hint {
+    margin-top: 0;
+    padding-bottom: 0;
+    align-self: end;
   }
 
   /* 모바일에서는 괄호 텍스트 숨김 */
