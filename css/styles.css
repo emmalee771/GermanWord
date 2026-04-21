@@ -19,7 +19,21 @@
   --ink: #000000;
   --muted: #666666;
   --divider: rgba(0, 0, 0, 0.08);
+  --article-color: #b3b3b3;
   --font: "SUIT Variable", "SUIT", system-ui, sans-serif;
+}
+
+/* 성별별 관사/부정관사 컬러 (요청 매핑) */
+.word-frame--neuter {
+  --article-color: #39a46e;
+}
+
+.word-frame--male {
+  --article-color: #ff4fbf;
+}
+
+.word-frame--female {
+  --article-color: #4f84ff;
 }
 
 body {
@@ -187,6 +201,7 @@ body {
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
+  white-space: nowrap;
 }
 
 .word-card__case {
@@ -252,6 +267,10 @@ body {
   line-height: 1.25;
   color: var(--ink);
   text-align: right;
+}
+
+.word-card__article {
+  color: var(--article-color);
 }
 
 .word-card__dd-plural {

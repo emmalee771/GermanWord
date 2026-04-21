@@ -79,6 +79,16 @@ function mediaHtml(row) {
   </div>`;
 }
 
+function formatGerman(s) {
+  const raw = (s ?? "").toString().trim();
+  if (!raw) return "";
+  const parts = raw.split(/\s+/);
+  if (parts.length === 1) return escapeHtml(raw);
+  const first = parts[0];
+  const rest = parts.slice(1).join(" ");
+  return `<span class="word-card__article">${escapeHtml(first)}</span> ${escapeHtml(rest)}`;
+}
+
 function renderCard(row) {
   const g = escapeHtml(`${row.성별} 명사`);
   const ko = escapeHtml(row.한국어);
@@ -90,8 +100,16 @@ function renderCard(row) {
         : row["성별"] === "중성"
           ? "word-card__tag word-card__tag--neuter"
           : "word-card__tag";
+  const frameClass =
+    row["성별"] === "남성"
+      ? "word-frame word-frame--male"
+      : row["성별"] === "여성"
+        ? "word-frame word-frame--female"
+        : row["성별"] === "중성"
+          ? "word-frame word-frame--neuter"
+          : "word-frame";
   return `
-    <article class="word-frame" aria-label="${ko}">
+    <article class="${frameClass}" aria-label="${ko}">
       <div class="word-card">
         ${mediaHtml(row)}
         <div class="word-card__content">
@@ -102,22 +120,22 @@ function renderCard(row) {
           <dl class="word-card__dict">
             <div class="word-card__row word-card__row--triple">
               <dt><span class="word-card__case-wrap"><span class="word-card__case">1격</span><span class="word-card__case-paren">(Nominativ)</span></span></dt>
-              <dd>${escapeHtml(row["1격 정관사 명사"])}</dd>
-              <dd>${escapeHtml(row["1격 부정관사 명사"])}</dd>
+              <dd>${formatGerman(row["1격 정관사 명사"])}</dd>
+              <dd>${formatGerman(row["1격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--triple">
               <dt><span class="word-card__case-wrap"><span class="word-card__case">3격</span><span class="word-card__case-paren">(Dativ)</span></span></dt>
-              <dd>${escapeHtml(row["3격 정관사 명사"])}</dd>
-              <dd>${escapeHtml(row["3격 부정관사 명사"])}</dd>
+              <dd>${formatGerman(row["3격 정관사 명사"])}</dd>
+              <dd>${formatGerman(row["3격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--triple">
               <dt><span class="word-card__case-wrap"><span class="word-card__case">4격</span><span class="word-card__case-paren">(Akkusativ)</span></span></dt>
-              <dd>${escapeHtml(row["4격 정관사 명사"])}</dd>
-              <dd>${escapeHtml(row["4격 부정관사 명사"])}</dd>
+              <dd>${formatGerman(row["4격 정관사 명사"])}</dd>
+              <dd>${formatGerman(row["4격 부정관사 명사"])}</dd>
             </div>
             <div class="word-card__row word-card__row--pair">
               <dt><span class="word-card__case-wrap"><span class="word-card__case">복수</span><span class="word-card__case-paren">(Plural)</span></span></dt>
-              <dd class="word-card__dd-plural">${escapeHtml(row["복수 정관사 명사"])}</dd>
+              <dd class="word-card__dd-plural">${formatGerman(row["복수 정관사 명사"])}</dd>
             </div>
           </dl>
         </div>
