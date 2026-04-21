@@ -164,8 +164,96 @@ async function main() {
   stack.setAttribute("aria-busy", "false");
   document.title = `Word layout — ${rows.length}장`;
   const hint = document.getElementById("page-hint");
-  if (hint) {
-    hint.textContent = `word_data.csv · 총 ${rows.length}개 카드`;
+  if (hint) hint.textContent = "1";
+
+  // 현재 카드 순번 표시 (모바일 캐러셀/데스크톱 스크롤 모두 대응)
+  const cards = Array.from(stack.querySelectorAll(".word-frame"));
+  const total = cards.length;
+  const updateIndex = () => {
+    if (!hint || total === 0) return;
+    const stackRect = stack.getBoundingClientRect();
+    const cx = stackRect.left + stackRect.width / 2;
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < total; i++) {
+      const r = cards[i].getBoundingClientRect();
+      const mcx = r.left + r.width / 2;
+      const d = Math.abs(mcx - cx);
+      if (d < bestDist) {
+        bestDist = d;
+        bestIdx = i;
+      }
+    }
+    hint.textContent = String(bestIdx + 1);
+  };
+
+  let raf = 0;
+  const onScroll = () => {
+    if (raf) return;
+    raf = window.requestAnimationFrame(() => {
+      raf = 0;
+      updateIndex();
+    });
+  };
+  stack.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
+  updateIndex();
+
+  // 모바일에서만: 아래로 당기면 새로고침
+  const isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+  if (isMobile) {
+    let startY = 0;
+    let startX = 0;
+    let tracking = false;
+    let pulled = 0;
+
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        if (window.scrollY > 0) return;
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        startY = t.clientY;
+        startX = t.clientX;
+        pulled = 0;
+        tracking = true;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        if (!tracking) return;
+        if (window.scrollY > 0) {
+          tracking = false;
+          return;
+        }
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        const dy = t.clientY - startY;
+        const dx = t.clientX - startX;
+        // 수평 스와이프(캐러셀)면 무시
+        if (Math.abs(dx) > Math.abs(dy)) {
+          tracking = false;
+          return;
+        }
+        pulled = dy;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      () => {
+        if (!tracking) return;
+        tracking = false;
+        if (pulled > 90) {
+          window.location.reload();
+        }
+      },
+      { passive: true }
+    );
   }
 }
 
