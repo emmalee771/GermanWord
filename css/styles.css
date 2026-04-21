@@ -285,13 +285,34 @@ body {
     --media: 100px;
   }
 
+  /* 상단: 썸네일(좌) + 헤더 pill(우), 하단: 격 표 전체 폭 */
   .word-card {
-    flex-direction: row;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: var(--media) 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 24px;
+    row-gap: 24px;
+    align-items: start;
+  }
+
+  .word-card__content {
+    display: contents;
   }
 
   .word-card__media {
-    align-self: flex-start;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .word-card__head {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .word-card__dict {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
   }
 
   /* 모바일에서는 괄호 텍스트 숨김 */
