@@ -322,15 +322,19 @@ body {
   .page-title-deco {
     width: 218.5641px;
     height: 218.5641px;
-    margin-top: 0;
     background: #d9f939;
     border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
     justify-self: center;
-    position: relative;
+    position: absolute;
+    left: 182px;
+    top: -37.28px;
+    transform: rotate(30deg);
+    transform-origin: 50% 50%;
     z-index: 0; /* 헤더는 카드 아래 레이어 */
+    pointer-events: none;
   }
 
   .page-title {
