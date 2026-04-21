@@ -104,7 +104,7 @@ body {
   background: #f0f0f0;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 16px; /* top row -> thumbnail gap (Figma: 16) */
+  margin-top: 24px; /* Figma gap: 24 */
 }
 
 .sentence-card__thumb img {
@@ -125,7 +125,7 @@ body {
 
 .sentence-num {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 19.968px;
   color: #999999;
   text-align: right;
@@ -133,7 +133,7 @@ body {
 }
 
 .sentence-card__body {
-  margin-top: 16px; /* thumbnail -> text gap (Figma: 16) */
+  margin-top: 24px; /* Figma gap: 24 */
   width: 252px;
   margin-left: auto;
   margin-right: auto;
@@ -146,7 +146,7 @@ body {
   min-height: 29px;
   border-radius: 100px;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 17.472px;
 }
 
@@ -182,17 +182,17 @@ body {
 }
 .sentence-title {
   margin: 16px 0 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
-  line-height: 29.952px;
+  line-height: 34.944px;
   color: #222222;
 }
 
 .sentence-subtitle {
-  margin: 16px 0 0;
-  font-size: 16px;
+  margin: 8px 0 0; /* Figma gap: 8 */
+  font-size: 20px;
   font-weight: 500;
-  line-height: 19.968px;
+  line-height: 24.96px;
   color: #000000;
 }
 
