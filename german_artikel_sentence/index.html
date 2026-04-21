@@ -8,19 +8,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" />
-  <style>
-    :root { font-family: "Nunito Sans", system-ui, sans-serif; }
-    body { margin: 0; min-height: 100vh; background: #f9f9f9; color: #111; }
-    main { max-width: 720px; margin: 0 auto; padding: 48px 20px; }
-    h1 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
-    p { margin: 0; color: #666; }
-    a { color: inherit; }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.__SENTENCE_CSV_URL__ = "word_data.csv";
+    window.__SENTENCE_IMAGE_BASE__ = "../images/";
+  </script>
 </head>
 <body>
-  <main>
-    <h1>german_artikel_sentence</h1>
-    <p>새 작업물을 여기에 만들면 됩니다. 메인으로 돌아가려면 <a href="../german/">german</a>.</p>
+  <main class="sentence-page">
+    <header class="sentence-header" aria-hidden="true">
+      <div class="sentence-header__deco">
+        <h1 class="sentence-header__title">German<br />Artikel</h1>
+      </div>
+    </header>
+
+    <section class="sentence-carousel" aria-label="예문 카드" aria-busy="true" id="sentence-stack"></section>
+    <p class="sentence-hint" id="sentence-hint">불러오는 중…</p>
   </main>
+  <script src="sentence.js" defer></script>
 </body>
 </html>
