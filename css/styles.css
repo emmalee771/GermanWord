@@ -290,15 +290,15 @@ body {
   /* 모바일: 세로 스택 → 가로 스와이프(스크롤) 캐러셀 */
   .word-stack {
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
     justify-content: flex-start;
     /* 340px 카드 + (다음 카드 20px peek) */
-    gap: 0;
+    gap: 24px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 0 20px 0 0;
+    padding: 0 20px 0 16px;
     max-width: 100%;
   }
 

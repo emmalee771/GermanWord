@@ -169,6 +169,7 @@ async function main() {
   // 현재 카드 순번 표시 (모바일 캐러셀/데스크톱 스크롤 모두 대응)
   const cards = Array.from(stack.querySelectorAll(".word-frame"));
   const total = cards.length;
+  let currentIndex = 0;
   const updateIndex = () => {
     if (!hint || total === 0) return;
     const stackRect = stack.getBoundingClientRect();
@@ -184,7 +185,8 @@ async function main() {
         bestIdx = i;
       }
     }
-    hint.textContent = String(bestIdx + 1);
+    currentIndex = bestIdx;
+    hint.textContent = `${bestIdx + 1} / ${total}`;
   };
 
   let raf = 0;
@@ -199,23 +201,29 @@ async function main() {
   window.addEventListener("scroll", onScroll, { passive: true });
   updateIndex();
 
-  // 모바일에서만: 아래로 당기면 새로고침
+  // 모바일에서만: (1) 전체 화면 좌우 스와이프 → 카드 넘김, (2) 상단에서 아래로 당기기 → 새로고침
   const isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
   if (isMobile) {
-    let startY = 0;
+    const scrollToIndex = (idx) => {
+      const next = Math.max(0, Math.min(total - 1, idx));
+      const el = cards[next];
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    };
+
     let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let lastY = 0;
     let tracking = false;
-    let pulled = 0;
 
     window.addEventListener(
       "touchstart",
       (e) => {
-        if (window.scrollY > 0) return;
         const t = e.touches && e.touches[0];
         if (!t) return;
-        startY = t.clientY;
-        startX = t.clientX;
-        pulled = 0;
+        startX = lastX = t.clientX;
+        startY = lastY = t.clientY;
         tracking = true;
       },
       { passive: true }
@@ -225,20 +233,10 @@ async function main() {
       "touchmove",
       (e) => {
         if (!tracking) return;
-        if (window.scrollY > 0) {
-          tracking = false;
-          return;
-        }
         const t = e.touches && e.touches[0];
         if (!t) return;
-        const dy = t.clientY - startY;
-        const dx = t.clientX - startX;
-        // 수평 스와이프(캐러셀)면 무시
-        if (Math.abs(dx) > Math.abs(dy)) {
-          tracking = false;
-          return;
-        }
-        pulled = dy;
+        lastX = t.clientX;
+        lastY = t.clientY;
       },
       { passive: true }
     );
@@ -248,7 +246,19 @@ async function main() {
       () => {
         if (!tracking) return;
         tracking = false;
-        if (pulled > 90) {
+
+        const dx = lastX - startX;
+        const dy = lastY - startY;
+
+        // 좌우 스와이프(전체 화면): 다음/이전 카드
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) >= 40) {
+          if (dx < 0) scrollToIndex(currentIndex + 1);
+          else scrollToIndex(currentIndex - 1);
+          return;
+        }
+
+        // pull-to-refresh: 최상단에서 아래로 당기면 새로고침
+        if (window.scrollY === 0 && dy >= 90 && Math.abs(dy) > Math.abs(dx)) {
           window.location.reload();
         }
       },
