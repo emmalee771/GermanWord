@@ -13,6 +13,18 @@ const WORD_MEDIA = {
   아이: "images/kind.svg",
 };
 
+function resolveAssetUrl(maybeRelativeUrl) {
+  const raw = (maybeRelativeUrl ?? "").toString().trim();
+  if (!raw) return "";
+  // keep absolute/data/blob URLs as-is
+  if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
+  const base =
+    typeof window.__ASSET_BASE__ === "string" && window.__ASSET_BASE__.length > 0
+      ? window.__ASSET_BASE__
+      : window.location.href;
+  return new URL(raw, base).href;
+}
+
 function escapeHtml(s) {
   const d = document.createElement("div");
   d.textContent = s == null ? "" : String(s);
@@ -71,7 +83,7 @@ function mediaHtml(row) {
   if (!src) {
     return `<div class="word-card__media" role="presentation" aria-hidden="true"></div>`;
   }
-  const safeSrc = escapeHtml(src);
+  const safeSrc = escapeHtml(resolveAssetUrl(src));
   return `<div class="word-card__media" role="presentation" aria-hidden="true">
     <span class="word-card__media-anchor">
       <img class="word-card__media-img" src="${safeSrc}" width="186" height="186" alt="" decoding="async" />
@@ -147,7 +159,10 @@ async function loadCsvText() {
   if (typeof window.__WORD_CSV__ === "string" && window.__WORD_CSV__.length > 0) {
     return window.__WORD_CSV__;
   }
-  const url = new URL("word_data.csv", window.location.href);
+  const url =
+    typeof window.__WORD_CSV_URL__ === "string" && window.__WORD_CSV_URL__.length > 0
+      ? new URL(window.__WORD_CSV_URL__, window.location.href)
+      : new URL("word_data.csv", window.location.href);
   const res = await fetch(url.href);
   if (!res.ok) throw new Error(`word_data.csv (${res.status})`);
   return await res.text();

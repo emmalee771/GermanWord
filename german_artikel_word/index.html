@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>German Artikel — Word</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script>
+    // 하위 폴더에서도 CSV/이미지 경로가 깨지지 않도록 베이스를 지정합니다.
+    window.__WORD_CSV_URL__ = "../word_data.csv";
+    window.__ASSET_BASE__ = "../";
+  </script>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header" aria-hidden="true">
+      <div class="page-title-deco">
+        <h1 class="page-title" id="page-title">German<br />Artikel</h1>
+      </div>
+    </header>
+    <div class="word-stack" id="word-stack" aria-label="단어 카드" aria-busy="true"></div>
+    <p class="page-hint" id="page-hint">불러오는 중…</p>
+  </main>
+  <script src="../js/app.js" defer></script>
+</body>
+</html>
