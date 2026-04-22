@@ -165,6 +165,61 @@ async function main() {
   stack.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("scroll", onScroll, { passive: true });
   updateIndex();
+
+  // 모바일에서만: 상단에서 아래로 당기면 새로고침 (가로 스와이프는 방해하지 않음)
+  const isMobile = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+  if (isMobile) {
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let tracking = false;
+
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        if (window.scrollY > 0) return;
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        startX = lastX = t.clientX;
+        startY = lastY = t.clientY;
+        tracking = true;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        if (!tracking) return;
+        if (window.scrollY > 0) {
+          tracking = false;
+          return;
+        }
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        lastX = t.clientX;
+        lastY = t.clientY;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      () => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = lastX - startX;
+        const dy = lastY - startY;
+        // 수평 스와이프(캐러셀)면 무시
+        if (Math.abs(dx) > Math.abs(dy)) return;
+        if (window.scrollY === 0 && dy >= 90) {
+          window.location.reload();
+        }
+      },
+      { passive: true }
+    );
+  }
 }
 
 main().catch((err) => {
