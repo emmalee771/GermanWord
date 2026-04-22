@@ -86,7 +86,14 @@ function renderCard(row, idx) {
   const num = escapeHtml(row["번호"] || String(idx + 1));
   const coreRaw = (row["핵심관사"] || "").toString();
   const gender = detectGender(coreRaw);
-  const de = highlightArticles(row["독일어예문"] || "", gender);
+  let de = highlightArticles(row["독일어예문"] || "", gender);
+  // 예외 처리: #48 "Die Kinder"에서 Kinder 앞의 "Die"는 하이라이트하지 않음
+  if (String(row["번호"] || "").trim() === "48") {
+    de = de.replace(
+      /<span class="sentence-article[^"]*">(die)<\/span>(\s+Kinder)/i,
+      "$1$2"
+    );
+  }
   const ko = escapeHtml(row["한국어해석"] || "");
   const core = escapeHtml(coreRaw);
   const pillClass = gender ? `sentence-pill sentence-pill--${gender}` : "sentence-pill sentence-pill--male";
